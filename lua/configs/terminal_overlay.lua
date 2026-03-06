@@ -273,6 +273,22 @@ function M.remove(index)
     end
 end
 
+function M.remove_current()
+    if not state.open or #state.terms == 0 then
+        return
+    end
+
+    local index
+
+    if state.zoomed_index then
+        index = state.zoomed_index
+    else
+        index = get_focused_overlay_index()
+    end
+
+    M.remove(index)
+end
+
 function M.focus(index)
     if not state.open then
         M.open()
