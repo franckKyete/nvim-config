@@ -258,6 +258,25 @@ function M.remove(index)
         return
     end
 
+    local term = state.terms[index]
+
+    if term and term.job_id then
+        local pid = vim.fn.jobpid(term.job_id)
+
+        if pid and pid > 0 then
+            -- Get the process group id of the terminal job
+            local pgid = vim.trim(vim.fn.system({ "ps", "-o", "pgid=", "-p", tostring(pid) }))
+
+            if vim.v.shell_error == 0 and pgid ~= "" then
+                -- Force-kill the whole process group
+                vim.fn.system({ "kill", "-KILL", "--", "-" .. pgid })
+            else
+                -- Fallback: force-kill just the main job pid
+                vim.fn.system({ "kill", "-KILL", tostring(pid) })
+            end
+        end
+    end
+
     table.remove(state.terms, index)
 
     if #state.terms == 0 then
