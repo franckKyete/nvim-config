@@ -50,17 +50,11 @@ return {
 
     {
         "nvim-treesitter/nvim-treesitter",
-        opts = {
-            ensure_installed = {
-                "lua", "javascript", "typescript",
-                "vim", "lua", "vimdoc",
-                "html", "css", "slint",
-                "rust", "tsx", "kotlin"
-            },
-            highlight = {
-                enable = true
-            }
-        },
+        opts = require("configs.treesitter").opts,
+        config = function(_, opts)
+            require("configs.treesitter").setup_predicates()
+            require("nvim-treesitter.configs").setup(opts)
+        end,
     },
 
     {

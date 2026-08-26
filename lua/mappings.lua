@@ -91,3 +91,6 @@ end, { desc = "Build and debug" })
 map("n", "T", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+--
+--
+map('n', '<leader>ag', '<cmd>Antigravity<cr>', { desc = 'Toggle Antigravity' })

@@ -90,17 +90,27 @@ lspconfig.lua_ls = {
     },
 }
 
-
+local util = require("lspconfig.util")
 lspconfig.kotlin_language_server = {
     -- on_attach = on_attach,
     -- capabilities = capabilities,
-    -- filetypes = { 'kt' },
+    filetypes = { 'kotlin' },
 
     -- root_dir = require('lspconfig.util').root_pattern("build.gradle", "settings.gradle"),
-
-    root_dir = vim.fs.dirname(vim.fs.find(
-        { "settings.gradle", "build.gradle", ".git" },
-        { upward = true })[1]),
+    -- root_dir = util.root_pattern(
+    --     -- "settings.gradle.kts",
+    --     "settings.gradle",
+    --     -- "build.gradle.kts",
+    --     "build.gradle",
+    --     ".git"
+    -- ),
+    -- root_dir = vim.fs.dirname(vim.fs.find(
+    --     { "settings.gradle", "build.gradle", ".git" },
+    --     { upward = true })[1]),
+    -- root_dir = "/home/kyete/devs/tools-react-native/",
+    root_dir =
+        util.root_pattern("package.json", ".git")()
+    ,
     settings = {
         kotlin = {
             compiler = {
