@@ -6,7 +6,7 @@ return {
         },
         lazy = false,
         opts = {
-            git = { enable = true },
+            git = { enable = true, timeout = 4000, },
             modified = { enable = true },
             diagnostics = { enable = true },
             view = { side = "left" },
